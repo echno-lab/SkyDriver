@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% csrf_token %}
+<form method="get" action="{% url 'search' %}">
+    <div class="container mx-auto flex justify-center items-center p-2 mt-10 md:p-0">
+        <div class="border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg w-full sm:w-2/3 ">
+            <div class="flex flex-col md:flex-row">
+                <div>
+                    {{ form.adults }}
+                </div>
+                <div class="pt-6 md:pt-0 md:pl-6">
+                    {{ form.class_type}}
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="flex flex-col rounded">
+                    {{ form.origin.label }}
+                    {{ form.origin }}
+                    <datalist id="origin_list">
+                        {% for airport in airports %}
+                            <option value="{{ airport.city }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="flex flex-col rounded">
+                    {{ form.destination.label }}
+                    {{ form.destination }}
+                    <datalist id="destination_list">
+                        {% for airport in airports %}
+                            <option value="{{ airport.city }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="flex flex-col rounded">
+                    {{ form.departure_date.label }}
+                    {{ form.departure_date }}
+                </div>
+                <div class="flex flex-col rounded">
+                    {{ form.return_date.label }}
+                    {{ form.return_date }}
+                </div>
+            </div>
+            <div class="flex justify-center"><button class="p-2 border w-1/4 rounded-md bg-blue-500 text-white font-bold">Search Cheap Flights</button></div>
+        </div>
+    </div>
+<form>
+{% endblock %}
