@@ -13,7 +13,7 @@ from flight.flight_offer import FlightProcessor
 from skydriver import settings
 from skydriver.config import AMADEUS_API_KEY, AMADEUS_API_SECRET
 
-from .forms import BookFlightForm, FlightSearchForm
+from .forms import FlightSearchForm
 from .models import Airport, Flight
 
 amadeus = Client(
@@ -82,7 +82,7 @@ def book_flight(request):
             }
             header = {"Authorization": f"Bearer {request.session['access_token']}"}
             response.append(requests.post(f"{settings.API_URL}flight/", headers=header, data=data))
-        return redirect("tickets")
+        return redirect("get_tickets")
     else:
         return redirect("/")
 

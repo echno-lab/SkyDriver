@@ -20,9 +20,3 @@ class FlightSearchForm(forms.Form):
     class_type = forms.ChoiceField(
         choices=CLASS_CHOICES, widget=forms.Select(attrs={"class": "border rounded"})
     )
-
-
-class BookFlightForm(forms.ModelForm):
-    class Meta:
-        model = Flight
-        fields = "__all__"
