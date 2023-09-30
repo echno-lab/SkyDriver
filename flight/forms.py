@@ -1,5 +1,7 @@
 from django import forms
 
+from .models import Flight
+
 CLASS_CHOICES = [("ECONOMY", "Economy"), ("BUSINESS", "Business")]
 ADULTS = [(1, "1 Adult"), (2, "2 Adults"), (3, "3 Adults"), (4, "4 Adults")]
 
@@ -18,3 +20,9 @@ class FlightSearchForm(forms.Form):
     class_type = forms.ChoiceField(
         choices=CLASS_CHOICES, widget=forms.Select(attrs={"class": "border rounded"})
     )
+
+
+class BookFlightForm(forms.ModelForm):
+    class Meta:
+        model = Flight
+        fields = "__all__"

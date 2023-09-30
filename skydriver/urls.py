@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework_simplejwt.views import TokenRefreshView
 
+from api import urls as api_urls
+from api.user.views import MyTokenObtainPairView
 from flight import urls as flight_urls
 from user import urls as user_urls
 
@@ -25,4 +28,7 @@ urlpatterns = [
     path("__reload__", include("django_browser_reload.urls")),
     path("", include(flight_urls)),
     path("", include(user_urls)),
+    path("api/", include(api_urls)),
+    path("api/token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
