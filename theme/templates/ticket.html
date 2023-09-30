@@ -6,19 +6,27 @@
   <div class="flex flex-col sm:flex-row justify-between">
     <div class="w-70 text-left">
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
-        {{ ticket.first_departure_date }} Adolfo Suárez Madrid–Barajas {{ ticket.first_departure_airport }}
+        {{ ticket.first_departure_date }} {{ ticket.first_departure_airport }}
       </h5>
       <h5 class="mb-2 text-sm font-bold tracking-tight text-blue-600">
         <span>&#8595;</span>Direct
       </h5>
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
-        {{ ticket.first_arrival_date}} Simón Bolívar International {{ ticket.first_arrival_airport }}
+        {{ ticket.first_arrival_date}} {{ ticket.first_arrival_airport }}
       </h5>
+      {% if ticket.second_departure_date %}
+      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+        {{ ticket.second_departure_date }} {{ ticket.second_departure_airport }}
+      </h5>
+      <h5 class="mb-2 text-sm font-bold tracking-tight text-blue-600">
+        <span>&#8595;</span>Direct
+      </h5>
+      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+        {{ ticket.second_arrival_date}} {{ ticket.second_arrival_airport }}
+      </h5>
+      {% endif %}
     </div>
     <div class="text-center justify-center flex flex-col">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-green-500">
-        {{ ticket.0.price }}$
-      </h5>
       <form method="POST" action="{% url 'delete_ticket' %}">
         {% csrf_token %}
         <input type="hidden" name="id" value="{{ ticket.id }}">

@@ -101,11 +101,6 @@ class FlightProcessor:
                 flight.second_arrival_duration = self.flight_data["itineraries"][i]["segments"][1][
                     "duration"
                 ]
-            #  stop_time = get_stoptime(
-            #      self.flight_data["itineraries"][i]["duration"],
-            #      flight.first_.arrival_duration,
-            #      flight.second_arrival_duration,
-            #  )
             flights.append(flight)
             i += 1
         return flights
@@ -113,13 +108,3 @@ class FlightProcessor:
 
 def get_hour(date_time: str):
     return datetime.strptime(date_time[0:19], "%Y-%m-%dT%H:%M:%S").strftime("%H:%M")
-
-
-def get_stoptime(total_duration: str, first_flight_duration: str, second_flight_duration: str):
-    total_duration = re.findall(r"\d+", total_duration)
-    total_duration = int(total_duration[0]) * 60 + int(total_duration[1])
-    first_flight_duration = re.findall(r"\d+", first_flight_duration)
-    first_flight_duration = int(first_flight_duration[0]) * 60 + int(first_flight_duration[1])
-    second_flight_duration = re.findall(r"\d+", second_flight_duration)
-    second_flight_duration = int(second_flight_duration[0]) * 60 + int(second_flight_duration[1])
-    return total_duration - (first_flight_duration + second_flight_duration)

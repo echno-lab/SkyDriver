@@ -53,32 +53,55 @@
     <div class="w-70 text-left">
       <h3 class="mb-2 text-2xl text-gray-600/50">Outbound</h3>
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
-        {{ offer.0.first_departure_date }} Adolfo Suárez Madrid–Barajas {{ offer.0.first_departure_airport }}
+        {{ offer.0.first_departure_date }} {{ offer.0.first_departure_airport }}
       </h5>
       <h5 class="mb-2 text-sm font-bold tracking-tight text-blue-600">
         <span>&#8595;</span>Direct
       </h5>
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
-        {{ offer.0.first_arrival_date}} Simón Bolívar International {{ offer.0.first_arrival_airport }}
+        {{ offer.0.first_arrival_date}} {{ offer.0.first_arrival_airport }}
       </h5>
+      {% if offer.0.second_departure_date %}
+      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+        {{ offer.0.second_departure_date }} {{ offer.0.second_departure_airport }}
+      </h5>
+      <h5 class="mb-2 text-sm font-bold tracking-tight text-blue-600">
+        <span>&#8595;</span>Direct
+      </h5>
+      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+        {{ offer.0.second_arrival_date}} {{ offer.0.second_arrival_airport }}
+      </h5> 
+      {% endif %}
       {% if offer.1 %}
 
       <h3 class="mb-2 text-2xl text-gray-600/50 ">Inbound</h3>
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
-        {{ offer.1.first_departure_date }} Simón Bolívar International {{ offer.1.first_departure_airport }}
+        {{ offer.1.first_departure_date }} {{ offer.1.first_departure_airport }}
       </h5>
       <h5 class="mb-2 text-sm font-bold tracking-tight text-blue-600">
         <span>&#8595;</span>Direct
       </h5>
       <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
-        {{ offer.1.first_arrival_date}} Adolfo Suárez Madrid–Barajas {{ offer.1.first_arrival_airport }}
+        {{ offer.1.first_arrival_date}} {{ offer.1.first_arrival_airport }}
       </h5>
+      {% if offer.1.second_departure_date %}
+      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+        {{ offer.1.second_departure_date }} {{ offer.1.second_departure_airport }}
+      </h5>
+      <h5 class="mb-2 text-sm font-bold tracking-tight text-blue-600">
+        <span>&#8595;</span>Direct
+      </h5>
+      <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+        {{ offer.1.second_arrival_date}} {{ offer.1.second_arrival_airport }}
+      </h5>
+      {% endif %}
       {% endif %}
     </div>
     <div class="text-center justify-center flex flex-col">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-green-500">
         {{ offer.0.price }}$
       </h5>
+      {% if request.session.access_token %}
       <form method="POST" action="{% url 'book_flight' %}">
         {% csrf_token %}
         <input type="hidden" name="flights" value="{{ offer }}">
@@ -87,6 +110,12 @@
           Book now
         </button>
       </form>
+      {% else %}
+      <a href="{% url 'login' %}"
+        class="inline-flex items-center px-3 py-2 text-3xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Login to Book
+      </a>
+      {% endif %}
     </div>
   </div>
 </div>
