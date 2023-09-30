@@ -11,11 +11,11 @@
   <nav class="shadow">
     <div class="flex justify-between items-center py-6 px-10 container mx-auto">
       <div>
-        <h1
-          class="text-2xl font-bold text-blue-500 bg-clip-text hover:cursor-pointer"
+        <a
+         href="/" class="text-2xl font-bold text-blue-500 bg-clip-text hover:cursor-pointer"
         >
           Skydrive
-        </h1>
+      </a>
       </div>
       <div>
         <div class="hover:cursor-pointer sm:hidden">
@@ -30,50 +30,50 @@
           ></spnan>
         </div>
         <div class="flex items-center">
+          {% if request.user.is_authenticated %}
           <ul class="sm:flex space-x-4 hidden items-center">
             <li>
               <a href="#" class="text-gray-700 hover:text-indigo-600 text-md"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-gray-700 hover:text-indigo-600 text-md"
-                >About</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-gray-700 hover:text-indigo-600 text-md"
-                >Services</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-gray-700 hover:text-indigo-600 text-md"
-                >Products</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-gray-700 hover:text-indigo-600 text-md"
-                >Contact</a
+                >My Tickets</a
               >
             </li>
           </ul>
           <div class="md:flex items-center hidden space-x-4 ml-8 lg:ml-12">
-            <h1
-              class="text-text-gray-600 py-2 hover:cursor-pointer hover:text-indigo-600"
+
+            <a
+              href="{% url 'logout' %}" class="text-text-gray-600 py-2 hover:cursor-pointer px-4 rounded text-white bg-blue-500 hover:shadow-lg" type="submit"
+            >
+              LOGOUT
+          </a>
+          </div>
+          {% else %}
+          <div class="md:flex items-center hidden space-x-4 ml-8 lg:ml-12">
+            <a
+             href="{% url 'login' %}" class="text-text-gray-600 py-2 hover:cursor-pointer hover:text-indigo-600"
             >
               LOGIN
-            </h1>
-            <h1
-              class="text-text-gray-600 py-2 hover:cursor-pointer px-4 rounded text-white bg-blue-500 hover:shadow-lg"
+          </a>
+            <a
+             href="{% url 'register' %}" class="text-text-gray-600 py-2 hover:cursor-pointer px-4 rounded text-white bg-blue-500 hover:shadow-lg"
             >
               SIGNUP
-            </h1>
+        </a>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
   </nav>
   <body>
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     {% block content %} {% endblock %}
   </body>
 </html>

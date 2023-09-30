@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 from flight import urls as flight_urls
+from user import urls as user_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__", include("django_browser_reload.urls")),
     path("", include(flight_urls)),
+    path("", include(user_urls)),
 ]
